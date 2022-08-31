@@ -3,6 +3,7 @@
 export type BaseRegion = {
   id: string | number,
   cls?: string,
+  prd?: string,
   locked?: boolean,
   visible?: boolean,
   color: string,

@@ -60,6 +60,7 @@ type Props = {
   alwaysShowNextButton?: boolean,
   alwaysShowPrevButton?: boolean,
   onRegionClassAdded: () => {},
+  onRegionProductAdded: () => {},
   hideHeader?: boolean,
   hideHeaderText?: boolean,
 }
@@ -144,6 +145,7 @@ export const MainLayout = ({
       modifyingAllowedArea={state.selectedTool === "modify-allowed-area"}
       regionClsList={state.regionClsList}
       regionTagList={state.regionTagList}
+      regionPrdList={state.regionPrdList}
       regions={
         state.annotationType === "image"
           ? activeImage.regions || []

@@ -39,6 +39,10 @@ const loadSavedInput = () => {
   }
 }
 
+const handleSave = async (data) => {
+  console.log(data)
+}
+
 export const examples = {
   "Simple Bounding Box": () => ({
     taskDescription:
@@ -47,7 +51,9 @@ export const examples = {
     // regionClsList: ["hotdog"],
     regionTagList: ["has-bun"],
     regionClsList: ["hotdog", "not-hotdog"],
+    regionPrdList: ["prd1", "prd2", "prd3"],
     enabledTools: ["select", "create-box"],
+    // onExit: {handleSave},
     // showTags: true,
     images: [
       {

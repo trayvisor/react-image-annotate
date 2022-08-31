@@ -27,8 +27,10 @@ type Props = {
   allowedArea?: { x: number, y: number, w: number, h: number },
   regionTagList?: Array<string>,
   regionClsList?: Array<string>,
+  regionPrdList?: Array<string>,
   imageTagList?: Array<string>,
   imageClsList?: Array<string>,
+  imagePrdList?: Array<string>,
   enabledTools?: Array<string>,
   selectedTool?: String,
   showTags?: boolean,
@@ -76,8 +78,10 @@ export const Annotator = ({
   selectedTool = "select",
   regionTagList = [],
   regionClsList = [],
+  regionPrdList = [],
   imageTagList = [],
   imageClsList = [],
+  imagePrdList = [],
   keyframes = {},
   taskDescription = "",
   fullImageSegmentationMode = false,
@@ -126,9 +130,11 @@ export const Annotator = ({
       showMask: true,
       labelImages: imageClsList.length > 0 || imageTagList.length > 0,
       regionClsList,
+      regionPrdList,
       regionTagList,
       imageClsList,
       imageTagList,
+      imagePrdList,
       currentVideoTime: videoTime,
       enabledTools,
       history: [],
@@ -169,6 +175,13 @@ export const Annotator = ({
     })
   })
 
+  const onRegionProductAdded = useEventCallback((prd) => {
+    dispatchToReducer({
+      type: "ON_PRD_ADDED",
+      prd: prd,
+    })
+  })
+
   useEffect(() => {
     if (selectedImage === undefined) return
     dispatchToReducer({
@@ -190,6 +203,7 @@ export const Annotator = ({
         state={state}
         dispatch={dispatch}
         onRegionClassAdded={onRegionClassAdded}
+        onRegionProductAdded={onRegionProductAdded}
         hideHeader={hideHeader}
         hideHeaderText={hideHeaderText}
         hideNext={hideNext}

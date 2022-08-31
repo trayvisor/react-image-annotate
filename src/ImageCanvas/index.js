@@ -61,6 +61,7 @@ type Props = {
   pointDistancePrecision?: number,
   regionClsList?: Array<string>,
   regionTagList?: Array<string>,
+  regionPrdList?: Array<string>,
   allowedArea?: { x: number, y: number, w: number, h: number },
   RegionEditLabel?: Node,
   videoPlaying?: boolean,
@@ -115,6 +116,7 @@ export const ImageCanvas = ({
   pointDistancePrecision = 0,
   regionClsList,
   regionTagList,
+  regionPrdList,
   showCrosshairs,
   showHighlightBox = true,
   showPointDistances,
@@ -350,6 +352,7 @@ export const ImageCanvas = ({
                       type: "box",
                       id: "$$allowed_area",
                       cls: "allowed_area",
+                      prd: "allowed_area",
                       highlighted: true,
                       x: allowedArea.x,
                       y: allowedArea.y,
@@ -384,6 +387,7 @@ export const ImageCanvas = ({
               mouseEvents={mouseEvents}
               regionClsList={regionClsList}
               regionTagList={regionTagList}
+              regionPrdList={regionPrdList}
               onBeginRegionEdit={onBeginRegionEdit}
               onChangeRegion={onChangeRegion}
               onCloseRegionEdit={onCloseRegionEdit}
@@ -401,6 +405,7 @@ export const ImageCanvas = ({
             <RegionLabel
               disableClose
               allowedClasses={regionClsList}
+              allowedProducts={regionPrdList}
               allowedTags={regionTagList}
               onChange={onChangeRegion}
               onDelete={onDeleteRegion}
@@ -447,6 +452,7 @@ export const ImageCanvas = ({
                 autoSegmentationOptions={autoSegmentationOptions}
                 imagePosition={imagePosition}
                 regionClsList={regionClsList}
+                regionPrdList={regionPrdList}
                 imageSrc={imageSrc}
                 regions={regions}
               />

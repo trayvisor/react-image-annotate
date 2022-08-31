@@ -18,6 +18,7 @@ export const RegionTags = ({
   projectRegionBox,
   mouseEvents,
   regionClsList,
+  regionPrdList,
   regionTagList,
   onBeginRegionEdit,
   onChangeRegion,
@@ -27,6 +28,7 @@ export const RegionTags = ({
   imageSrc,
   RegionEditLabel,
   onRegionClassAdded,
+  onRegionProductAdded,
   allowComments,
 }) => {
   const RegionLabel =
@@ -109,6 +111,7 @@ export const RegionTags = ({
           >
             <RegionLabel
               allowedClasses={regionClsList}
+              allowedProducts={regionPrdList}
               allowedTags={regionTagList}
               onOpen={onBeginRegionEdit}
               onChange={onChangeRegion}
@@ -119,6 +122,7 @@ export const RegionTags = ({
               regions={regions}
               imageSrc={imageSrc}
               onRegionClassAdded={onRegionClassAdded}
+              onRegionProductAdded={onRegionProductAdded}
               allowComments={allowComments}
             />
           </div>

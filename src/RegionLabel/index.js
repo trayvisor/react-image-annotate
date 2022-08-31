@@ -25,13 +25,16 @@ type Props = {
   editing?: boolean,
   allowedClasses?: Array<string>,
   allowedTags?: Array<string>,
+  allowedProducts?: Array<string>,
   cls?: string,
+  prd?: string,
   tags?: Array<string>,
   onDelete: (Region) => null,
   onChange: (Region) => null,
   onClose: (Region) => null,
   onOpen: (Region) => null,
   onRegionClassAdded: () => {},
+  onRegionProductAdded: () => {},
   allowComments?: boolean,
 }
 
@@ -40,11 +43,13 @@ export const RegionLabel = ({
   editing,
   allowedClasses,
   allowedTags,
+  allowedProducts,
   onDelete,
   onChange,
   onClose,
   onOpen,
   onRegionClassAdded,
+  onRegionProductAdded,
   allowComments,
 }: Props) => {
   const classes = useStyles()
@@ -73,6 +78,15 @@ export const RegionLabel = ({
                   style={{ backgroundColor: region.color }}
                 />
                 {region.cls}
+              </div>
+            )}
+            {region.prd && (
+              <div className="name">
+                <div
+                  className="circle"
+                  style={{ backgroundColor: region.color }}
+                />
+                {region.prd}
               </div>
             )}
             {region.tags && (
@@ -132,6 +146,28 @@ export const RegionLabel = ({
                   }
                   options={asMutable(
                     allowedClasses.map((c) => ({ value: c, label: c }))
+                  )}
+                />
+              </div>
+            )}
+            {(allowedProducts || []).length > 0 && (
+              <div style={{ marginTop: 6 }}>
+                <CreatableSelect
+                  placeholder="Product classification"
+                  onChange={(o, actionMeta) => {
+                    if (actionMeta.action == "create-option") {
+                      onRegionProductAdded(o.value)
+                    }
+                    return onChange({
+                      ...(region: any),
+                      prd: o.value,
+                    })
+                  }}
+                  value={
+                    region.prd ? { label: region.prd, value: region.prd } : null
+                  }
+                  options={asMutable(
+                    allowedProducts.map((c) => ({ value: c, label: c }))
                   )}
                 />
               </div>

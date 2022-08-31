@@ -35,6 +35,15 @@ export default (state: MainLayoutState, action: Action) => {
     return newState
   }
 
+  if (action.type === "ON_PRD_ADDED" && action.prd && action.prd !== "") {
+    const oldRegionPrdList = state.regionPrdList
+    const newState = {
+      ...state,
+      regionPrdList: oldRegionPrdList.concat(action.prd),
+    }
+    return newState
+  }
+
   // Throttle certain actions
   if (action.type === "MOUSE_MOVE") {
     if (Date.now() - ((state: any).lastMouseMoveCall || 0) < 16) return state
@@ -136,6 +145,14 @@ export default (state: MainLayoutState, action: Action) => {
         if (clsIndex !== -1) {
           state = setIn(state, ["selectedCls"], action.region.cls)
           action.region.color = colors[clsIndex % colors.length]
+        }
+      }
+      if (oldRegion.prd !== action.region.prd) {
+        state = saveToHistory(state, "Change Region Classification")
+        const prdIndex = state.regionPrdList.indexOf(action.region.prd)
+        if (prdIndex !== -1) {
+          state = setIn(state, ["selectedPrd"], action.region.prd)
+          action.region.color = colors[prdIndex % colors.length]
         }
       }
       if (!isEqual(oldRegion.tags, action.region.tags)) {
@@ -526,11 +543,14 @@ export default (state: MainLayoutState, action: Action) => {
       let newRegion
       let defaultRegionCls = state.selectedCls,
         defaultRegionColor = "#ff0000"
+      let defaultRegionPrd = state.selectedPrd
 
       const clsIndex = (state.regionClsList || []).indexOf(defaultRegionCls)
       if (clsIndex !== -1) {
         defaultRegionColor = colors[clsIndex % colors.length]
       }
+
+      const prdIndex = (state.regionPrdList || []).indexOf(defaultRegionPrd)
 
       switch (state.selectedTool) {
         case "create-point": {
@@ -544,6 +564,7 @@ export default (state: MainLayoutState, action: Action) => {
             color: defaultRegionColor,
             id: getRandomId(),
             cls: defaultRegionCls,
+            prd: defaultRegionPrd,
           }
           break
         }
@@ -559,6 +580,7 @@ export default (state: MainLayoutState, action: Action) => {
             editingLabels: false,
             color: defaultRegionColor,
             cls: defaultRegionCls,
+            prd: defaultRegionPrd,
             id: getRandomId(),
           }
           state = setIn(state, ["mode"], {
@@ -584,6 +606,7 @@ export default (state: MainLayoutState, action: Action) => {
             highlighted: true,
             color: defaultRegionColor,
             cls: defaultRegionCls,
+            prd: defaultRegionPrd,
             id: getRandomId(),
           }
           state = setIn(state, ["mode"], {
@@ -602,6 +625,7 @@ export default (state: MainLayoutState, action: Action) => {
             highlighted: true,
             color: defaultRegionColor,
             cls: defaultRegionCls,
+            prd: defaultRegionPrd,
             id: getRandomId(),
           }
           state = setIn(state, ["mode"], {
@@ -623,6 +647,7 @@ export default (state: MainLayoutState, action: Action) => {
             editingLabels: false,
             color: defaultRegionColor,
             cls: defaultRegionCls,
+            prd: defaultRegionPrd,
             id: getRandomId(),
           }
           state = setIn(state, ["mode"], {
