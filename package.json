@@ -1,6 +1,6 @@
 {
-  "name": "react-image-annotate",
-  "version": "2.0.0",
+  "name": "react-image-annotate-trayvisor",
+  "version": "0.0.1",
   "dependencies": {
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
@@ -46,7 +46,7 @@
   "homepage": "/react-image-annotate",
   "repository": {
     "type": "git",
-    "url": "https://github.com/UniversalDataTool/react-image-annotate.git"
+    "url": "https://github.com/trayvisor/react-image-annotate"
   },
   "scripts": {
     "start": "react-scripts start",
